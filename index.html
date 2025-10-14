@@ -222,7 +222,7 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html {
             margin: 0;
             padding: 0;
             font-family: var(--font-family-base);
@@ -232,17 +232,58 @@
             -webkit-font-smoothing: antialiased;
             height: 100%;
             overflow-x: hidden;
+            /* Ensure background covers overscroll areas */
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            background-size: cover;
             touch-action: manipulation; /* prevents double-tap zoom */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: var(--line-height-normal);
+            height: 100%;
+            overflow-x: hidden;
+            /* Critical fixes for pull-to-refresh background */
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            background-size: cover;
+            /* Fix overscroll background for iOS Safari */
+            -webkit-overflow-scrolling: touch;
+            /* Ensure background covers entire viewport including overscroll */
+            min-height: 100vh;
+            min-height: 100dvh; /* Dynamic viewport height for mobile */
+            touch-action: manipulation; /* prevents double-tap zoom */
+        }
+
+        /* Fix overscroll background for all browsers */
+        html::before {
+            content: '';
+            position: fixed;
+            top: -100px;
+            left: 0;
+            right: 0;
+            bottom: -100px;
+            background-color: var(--color-background);
+            z-index: -1;
         }
 
         .app-container {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            min-height: 100dvh; /* Dynamic viewport height for mobile */
             padding: var(--space-16);
             gap: var(--space-24);
             max-width: 500px;
             margin: 0 auto;
+            background-color: var(--color-background);
+            /* Ensure app container also has proper background */
+            position: relative;
         }
 
         /* Header with category selector */
@@ -814,7 +855,7 @@
     <script>
         // Application data
         const categories = [
-            {
+        {
                 name: "Verbs",
                 cards: [
                     { key: "Come<br><br>வருவது", value: "Aa<br><br>आ" },
