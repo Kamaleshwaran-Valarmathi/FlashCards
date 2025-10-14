@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <title>Flashcard App</title>
 
     <!-- PWA configuration -->
@@ -230,6 +231,7 @@
             -webkit-font-smoothing: antialiased;
             height: 100%;
             overflow-x: hidden;
+            touch-action: manipulation; /* prevents double-tap zoom */
         }
 
         .app-container {
@@ -533,8 +535,6 @@
             background-color: var(--color-secondary);
             color: var(--color-text);
         }
-
-
 
         .table-container {
             overflow: auto;
@@ -1040,9 +1040,20 @@
             initializeApp();
         }
 
+        // Register service worker after all other scripts
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("service-worker.js");
         }
+
+        // Prevent double-tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
