@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard App</title>
-    
-    <!-- PWA configuration -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0078d7">
-    
     <style>
         :root {
           /* Primitive Color Tokens */
@@ -369,6 +364,7 @@
             gap: var(--space-16);
             justify-content: space-between;
             align-items: center;
+            margin-bottom: var(--space-24); /* Optimal spacing from bottom edge for mobile thumb zone */
         }
 
         .nav-button {
@@ -1037,10 +1033,6 @@
             document.addEventListener('DOMContentLoaded', initializeApp);
         } else {
             initializeApp();
-        }
-
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("service-worker.js");
         }
     </script>
 </body>
