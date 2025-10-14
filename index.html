@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard App</title>
+    
+    <!-- PWA configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0078d7">
+    
     <style>
         :root {
           /* Primitive Color Tokens */
@@ -1032,6 +1037,10 @@
             document.addEventListener('DOMContentLoaded', initializeApp);
         } else {
             initializeApp();
+        }
+
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js");
         }
     </script>
 </body>
