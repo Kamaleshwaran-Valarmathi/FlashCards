@@ -1,13 +1,13 @@
 {
   "name": "A to अ",
   "short_name": "English to Hindi",
-  "start_url": "/",
+  "start_url": "FlashCards/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0078d7",
   "icons": [
     {
-      "src": "/icons/icon.png",
+      "src": "icons/icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
