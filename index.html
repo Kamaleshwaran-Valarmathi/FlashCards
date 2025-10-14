@@ -9,7 +9,8 @@
     <!-- PWA configuration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
-    
+
+    <title>Flashcard App</title>
     <style>
         :root {
           /* Primitive Color Tokens */
@@ -274,7 +275,7 @@
             background-size: 20px;
             padding-right: var(--space-32);
             cursor: pointer;
-            transition: border-color var(--duration-normal) var(--ease-standard);
+            transition: all var(--duration-normal) var(--ease-standard);
         }
 
         .category-selector:focus {
@@ -284,9 +285,12 @@
         }
 
         @media (prefers-color-scheme: dark) {
-          .category-selector {
-            background-image: var(--select-caret-dark);
-          }
+            .category-selector {
+                background-image: var(--select-caret-dark);
+                background-color: var(--color-surface);
+                border-color: var(--color-border);
+                color: var(--color-text);
+            }
         }
 
         /* Main flashcard area */
@@ -330,22 +334,39 @@
             text-align: center;
         }
 
+        /* SOLID subtle color for flashcards - adapts to theme */
         .card-front {
-            background: var(--color-bg-1);
+            background-color: var(--flashcard-front-bg);
         }
-
         .card-back {
-            background: var(--color-bg-2);
+            background-color: var(--flashcard-back-bg);
             transform: rotateY(180deg);
+        }
+        /* Theme adaptation for flashcard solid colors */
+        :root {
+          --flashcard-front-bg: #f8f9fa; /* Subtle light gray for light mode */
+          --flashcard-back-bg: #f0f4f8;  /* Slightly bluish white for light mode */
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --flashcard-front-bg: #334155; /* Subtle dark blue for dark mode */
+            --flashcard-back-bg: #232e3c;  /* Slightly deeper blue for dark mode */
+          }
         }
 
         .card-content {
             font-size: var(--font-size-4xl);
             font-weight: var(--font-weight-medium);
             line-height: var(--line-height-normal);
-            color: var(--color-text);
+            color: var(--color-slate-900); /* Default for light mode */
             word-wrap: break-word;
             max-width: 100%;
+            transition: color var(--duration-fast) var(--ease-standard);
+        }
+        @media (prefers-color-scheme: dark) {
+            .card-content {
+                color: var(--color-gray-200); /* Light text for dark mode */
+            }
         }
         
         /* Support for Hindi Devanagari script */
@@ -359,10 +380,18 @@
             right: var(--space-12);
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
-            color: var(--color-text-secondary);
-            background-color: var(--color-secondary);
+            color: var(--color-slate-900); /* Light mode */
+            background-color: rgba(255,255,255,0.92);
             padding: var(--space-4) var(--space-8);
             border-radius: var(--radius-sm);
+            backdrop-filter: blur(8px);
+            transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+        }
+        @media (prefers-color-scheme: dark) {
+            .card-type {
+                color: var(--color-gray-200); /* Dark mode */
+                background-color: rgba(38,40,40,0.85); /* Dark solid overlay in dark mode */
+            }
         }
 
         /* Navigation buttons */
@@ -434,6 +463,15 @@
             height: 400px;
             font-size: var(--font-size-lg);
             color: var(--color-text-secondary);
+            text-align: center;
+            padding: var(--space-20);
+        }
+        
+        /* Ensure loading state adapts to theme */
+        @media (prefers-color-scheme: dark) {
+            .loading {
+                color: var(--color-text-secondary);
+            }
         }
 
         /* Header controls layout */
@@ -472,6 +510,19 @@
             outline: none;
             box-shadow: var(--focus-ring);
         }
+        
+        /* Ensure proper theme adaptation for view all button */
+        @media (prefers-color-scheme: dark) {
+            .view-all-button {
+                background-color: var(--color-secondary);
+                color: var(--color-text);
+                border-color: var(--color-border);
+            }
+            
+            .view-all-button:hover {
+                background-color: var(--color-secondary-hover);
+            }
+        }
 
         /* Modal styles */
         .modal-overlay {
@@ -498,6 +549,16 @@
             max-height: 80vh;
             display: flex;
             flex-direction: column;
+            border: 1px solid var(--color-border);
+        }
+        
+        /* Ensure modal adapts to theme */
+        @media (prefers-color-scheme: dark) {
+            .modal-content {
+                background-color: var(--color-surface);
+                border-color: var(--color-border);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            }
         }
 
         .modal-header {
@@ -506,6 +567,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background-color: var(--color-surface);
+        }
+        
+        /* Ensure modal header adapts to theme */
+        @media (prefers-color-scheme: dark) {
+            .modal-header {
+                background-color: var(--color-surface);
+                border-bottom-color: var(--color-border);
+            }
         }
 
         .modal-title {
@@ -535,6 +605,20 @@
             background-color: var(--color-secondary);
             color: var(--color-text);
         }
+        
+        /* Ensure close button adapts to theme */
+        @media (prefers-color-scheme: dark) {
+            .close-button {
+                color: var(--color-text-secondary);
+            }
+            
+            .close-button:hover {
+                background-color: var(--color-secondary);
+                color: var(--color-text);
+            }
+        }
+
+
 
         .table-container {
             overflow: auto;
@@ -558,8 +642,8 @@
         }
 
         .cards-table th {
-            background-color: var(--color-bg-1);
-            color: var(--color-text);
+            background-color: #e3f2fd; /* Light blue for light theme */
+            color: var(--color-slate-900);
             font-weight: var(--font-weight-semibold);
             padding: var(--space-12) var(--space-16);
             text-align: left;
@@ -569,6 +653,15 @@
             width: 50%;
             /* Use box-shadow for border effect to keep it sticky */
             box-shadow: inset 0 -2px 0 var(--color-primary), 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Lighter, more visible table header for dark theme */
+        @media (prefers-color-scheme: dark) {
+            .cards-table th {
+                background-color: #42a5f5; /* Lighter, more visible blue for dark theme */
+                color: var(--color-white);
+                box-shadow: inset 0 -2px 0 var(--color-teal-300), 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
         }
 
         .cards-table td {
@@ -724,71 +817,71 @@
             {
                 name: "Verbs",
                 cards: [
-                    { key: "Come", value: "Aa<br><br>आ" },
-                    { key: "Go", value: "Jaa<br><br>जा" },
-                    { key: "Do", value: "Kar<br><br>कर" },
-                    { key: "Read", value: "Pad<br><br>पढ़" },
-                    { key: "Write", value: "Likh<br><br>लिख" },
-                    { key: "Take", value: "Lae<br><br>ले" },
-                    { key: "Give", value: "Dhae<br><br>दे" },
-                    { key: "Bring", value: "Laa<br><br>ला" },
-                    { key: "See", value: "Dhek<br><br>देख" },
-                    { key: "Show", value: "Dhika<br><br>दिखा" },
-                    { key: "Eat", value: "Kha<br><br>खा" },
-                    { key: "Drink", value: "Pee<br><br>पी" },
-                    { key: "Sit", value: "Bite<br><br>बैठ" },
-                    { key: "Get Up", value: "Ut<br><br>उठ" },
-                    { key: "Play", value: "Khel<br><br>खेल" },
-                    { key: "Speak", value: "Bol<br><br>बोल" },
-                    { key: "Say", value: "Kah / Batha<br><br>कह / बता" },
-                    { key: "Hear", value: "Sun<br><br>सुन" },
-                    { key: "Ask (for Something)", value: "Pooch<br><br>पूछ" },
-                    { key: "Ask (for an Object)", value: "Maang<br><br>मांग" },
-                    { key: "Walk", value: "Chal<br><br>चल" },
-                    { key: "Run", value: "Dhaud<br><br>दौड़" },
-                    { key: "Live", value: "Rah<br><br>रह" },
-                    { key: "Keep", value: "Rakh<br><br>रख" },
-                    { key: "Put", value: "Daal<br><br>डाल" },
-                    { key: "Buy", value: "Kharedh<br><br>खरीद" },
-                    { key: "Sell", value: "Bech<br><br>बेच" },
-                    { key: "Sing", value: "Gha<br><br>गा" },
-                    { key: "Stop", value: "Ruk<br><br>रुक" },
-                    { key: "Wait", value: "Inthazar Kar<br><br>इंतज़ार कर" },
-                    { key: "Catch / Hold", value: "Pakad<br><br>पकड़" },
-                    { key: "Leave", value: "Chod<br><br>छोड़" },
-                    { key: "Call", value: "Bulaa<br><br>बुला" },
-                    { key: "Break", value: "Thod<br><br>तोड़" },
-                    { key: "Cut", value: "Kaat<br><br>काट" },
-                    { key: "Drive", value: "Chalaa<br><br>चला" },
-                    { key: "Earn", value: "Kamaa<br><br>कमा" },
-                    { key: "Fear", value: "Darna<br><br>डरना" },
-                    { key: "Fight", value: "Lad<br><br>लड़" },
-                    { key: "Learn", value: "Seekh<br><br>सीख" },
-                    { key: "Teach", value: "Sikhaa<br><br>सिखा" },
-                    { key: "Open", value: "Khol<br><br>खोल" },
-                    { key: "Close", value: "Bandh Kar<br><br>बंद कर" },
-                    { key: "Sleep", value: "Soo<br><br>सो" },
-                    { key: "Think", value: "Soch<br><br>सोच" },
-                    { key: "Dance", value: "Naach<br><br>नाच" },
-                    { key: "Laugh", value: "Has<br><br>हँस" },
-                    { key: "Cry", value: "Ro<br><br>रो" },
-                    { key: "Throw", value: "Faink<br><br>फेंक" },
-                    { key: "Spread", value: "File<br><br>फैल" },
-                    { key: "Bath", value: "Nahaa<br><br>नहा" },
-                    { key: "Swim", value: "Thair<br><br>तैर" },
-                    { key: "Fall", value: "Ghir<br><br>गिर" },
-                    { key: "Send", value: "Bejh<br><br>भेज" },
-                    { key: "Fly", value: "Ud<br><br>उड़" },
-                    { key: "Roam", value: "Ghoom<br><br>घूम" },
-                    { key: "Count", value: "Gin<br><br>गिन" },
-                    { key: "Wear", value: "Pahan<br><br>पहन" },
-                    { key: "Remove", value: "Nikal<br><br>निकाल" },
-                    { key: "Change", value: "Badhal<br><br>बदल" },
-                    { key: "Understand", value: "Samajh<br><br>समझ" },
-                    { key: "Switch On", value: "Chaalu Kar<br><br>चालू कर" },
-                    { key: "Meet", value: "Mil<br><br>मिल" },
-                    { key: "Climb", value: "Chad<br><br>चढ़" },
-                    { key: "Get Down", value: "Uthar<br><br>उतर" }
+                    { key: "Come<br><br>வருவது", value: "Aa<br><br>आ" },
+                    { key: "Go<br><br>போவது", value: "Jaa<br><br>जा" },
+                    { key: "Do<br><br>செய்வது", value: "Kar<br><br>कर" },
+                    { key: "Read<br><br>படிப்பது", value: "Pad<br><br>पढ़" },
+                    { key: "Write<br><br>எழுதுவது", value: "Likh<br><br>लिख" },
+                    { key: "Take<br><br>எடுப்பது", value: "Lae<br><br>ले" },
+                    { key: "Give<br><br>கொடுப்பது", value: "Dhae<br><br>दे" },
+                    { key: "Bring<br><br>கொண்டு வருவது", value: "Laa<br><br>ला" },
+                    { key: "See<br><br>பார்ப்பது", value: "Dhek<br><br>देख" },
+                    { key: "Show<br><br>காண்பிப்பது", value: "Dhika<br><br>दिखा" },
+                    { key: "Eat<br><br>சாப்பிடுவது", value: "Kha<br><br>खा" },
+                    { key: "Drink<br><br>குடிப்பது", value: "Pee<br><br>पी" },
+                    { key: "Sit<br><br>உட்காருவது", value: "Bite<br><br>बैठ" },
+                    { key: "Get Up<br><br>எழுந்திருப்பது", value: "Ut<br><br>उठ" },
+                    { key: "Play<br><br>விளையாடுவது", value: "Khel<br><br>खेल" },
+                    { key: "Speak<br><br>பேசுவது", value: "Bol<br><br>बोल" },
+                    { key: "Say<br><br>சொல்வது", value: "Kah / Batha<br><br>कह / बता" },
+                    { key: "Hear<br><br>கேட்பது", value: "Sun<br><br>सुन" },
+                    { key: "Ask (for Something)<br><br>கேட்பது (வினா)", value: "Pooch<br><br>पूछ" },
+                    { key: "Ask (for an Object)<br><br>கேட்பது (பொருட்கள்)", value: "Maang<br><br>मांग" },
+                    { key: "Walk<br><br>நடப்பது", value: "Chal<br><br>चल" },
+                    { key: "Run<br><br>ஓடுவது", value: "Dhaud<br><br>दौड़" },
+                    { key: "Live<br><br>இருப்பது", value: "Rah<br><br>रह" },
+                    { key: "Keep<br><br>வைப்பது", value: "Rakh<br><br>रख" },
+                    { key: "Put<br><br>போடுவது", value: "Daal<br><br>डाल" },
+                    { key: "Buy<br><br>வாங்குவது", value: "Kharedh<br><br>खरीद" },
+                    { key: "Sell<br><br>விற்பது", value: "Bech<br><br>बेच" },
+                    { key: "Sing<br><br>பாடுவது", value: "Gha<br><br>गा" },
+                    { key: "Stop<br><br>நிறுத்துவது", value: "Ruk<br><br>रुक" },
+                    { key: "Wait<br><br>காத்திருப்பது", value: "Inthazar Kar<br><br>इंतज़ार कर" },
+                    { key: "Catch / Hold<br><br>பிடிப்பது", value: "Pakad<br><br>पकड़" },
+                    { key: "Leave<br><br>விடுவது", value: "Chod<br><br>छोड़" },
+                    { key: "Call<br><br>அழைப்பது", value: "Bulaa<br><br>बुला" },
+                    { key: "Break<br><br>உடைப்பது", value: "Thod<br><br>तोड़" },
+                    { key: "Cut<br><br>வெட்டுவது", value: "Kaat<br><br>काट" },
+                    { key: "Drive<br><br>ஓட்டுவது", value: "Chalaa<br><br>चला" },
+                    { key: "Earn<br><br>சம்பாதிப்பது", value: "Kamaa<br><br>कमा" },
+                    { key: "Fear<br><br>பயப்படுவது", value: "Darna<br><br>डरना" },
+                    { key: "Fight<br><br>சண்டையிடுவது", value: "Lad<br><br>लड़" },
+                    { key: "Learn<br><br>கற்றுக்கொள்வது", value: "Seekh<br><br>सीख" },
+                    { key: "Teach<br><br>கற்றுக்கொடுப்பது", value: "Sikhaa<br><br>सिखा" },
+                    { key: "Open<br><br>திறப்பது", value: "Khol<br><br>खोल" },
+                    { key: "Close<br><br>மூடுவது", value: "Bandh Kar<br><br>बंद कर" },
+                    { key: "Sleep<br><br>தூங்குவது", value: "Soo<br><br>सो" },
+                    { key: "Think<br><br>யோசிப்பது", value: "Soch<br><br>सोच" },
+                    { key: "Dance<br><br>ஆடுவது", value: "Naach<br><br>नाच" },
+                    { key: "Laugh<br><br>சிரிப்பது", value: "Has<br><br>हँस" },
+                    { key: "Cry<br><br>அழுவது", value: "Ro<br><br>रो" },
+                    { key: "Throw<br><br>எறிவது", value: "Faink<br><br>फेंक" },
+                    { key: "Spread<br><br>பரப்புவது", value: "File<br><br>फैल" },
+                    { key: "Bath<br><br>குளிப்பது", value: "Nahaa<br><br>नहा" },
+                    { key: "Swim<br><br>நீந்துவது", value: "Thair<br><br>तैर" },
+                    { key: "Fall<br><br>விழுவது", value: "Ghir<br><br>गिर" },
+                    { key: "Send<br><br>அனுப்புவது", value: "Bejh<br><br>भेज" },
+                    { key: "Fly<br><br>பறப்பது", value: "Ud<br><br>उड़" },
+                    { key: "Roam<br><br>சுற்றுதல்", value: "Ghoom<br><br>घूम" },
+                    { key: "Count<br><br>எண்ணுதல்", value: "Gin<br><br>गिन" },
+                    { key: "Wear<br><br>உடுத்துதல்", value: "Pahan<br><br>पहन" },
+                    { key: "Remove<br><br>வெளியேற்றுதல்", value: "Nikal<br><br>निकाल" },
+                    { key: "Change<br><br>மாற்றுதல்", value: "Badhal<br><br>बदल" },
+                    { key: "Understand<br><br>புரிதல்", value: "Samajh<br><br>समझ" },
+                    { key: "Switch On<br><br>இயக்குதல்", value: "Chaalu Kar<br><br>चालू कर" },
+                    { key: "Meet<br><br>சந்திப்பது", value: "Mil<br><br>मिल" },
+                    { key: "Climb<br><br>ஏறுதல்", value: "Chad<br><br>चढ़" },
+                    { key: "Get Down<br><br>இறங்குதல்", value: "Uthar<br><br>उतर" }
                 ]
             },
             {
@@ -851,11 +944,11 @@
             
             flashcardElement.innerHTML = `
                 <div class="card-face card-front">
-                    <div class="card-type">English</div>
+                    <div class="card-type">Question</div>
                     <div class="card-content"></div>
                 </div>
                 <div class="card-face card-back">
-                    <div class="card-type">Hindi</div>
+                    <div class="card-type">Answer</div>
                     <div class="card-content"></div>
                 </div>
             `;
@@ -897,8 +990,9 @@
             updateCardCounter();
             
             // Update button states
-            prevButton.disabled = currentCardIndex === 0;
-            nextButton.disabled = currentCardIndex === shuffledCards.length - 1;
+            // Navigation wraps around
+            prevButton.disabled = false;
+            nextButton.disabled = false;
         }
 
         function toggleFlip() {
@@ -910,17 +1004,27 @@
         }
 
         function goToPreviousCard() {
+            if (shuffledCards.length === 0) return;
+            
+            // Wrap around: if at first card, go to last card
             if (currentCardIndex > 0) {
                 currentCardIndex--;
-                showCard();
+            } else {
+                currentCardIndex = shuffledCards.length - 1;
             }
+            showCard();
         }
 
         function goToNextCard() {
+            if (shuffledCards.length === 0) return;
+            
+            // Wrap around: if at last card, go to first card
             if (currentCardIndex < shuffledCards.length - 1) {
                 currentCardIndex++;
-                showCard();
+            } else {
+                currentCardIndex = 0;
             }
+            showCard();
         }
 
         function showTableView() {
