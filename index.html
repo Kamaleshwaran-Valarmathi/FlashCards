@@ -8,7 +8,7 @@
 
     <!-- PWA configuration -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#ffffff" id="theme-color-meta">
     
     <style>
         :root {
@@ -284,7 +284,12 @@
         }
 
         @media (prefers-color-scheme: dark) {
-          .category-selector {
+          body {
+            background-color: #000000; /* match dark theme */
+            color: #ffffff; /* text color */
+          }
+        
+         .category-selector {
             background-image: var(--select-caret-dark);
           }
         }
@@ -1055,6 +1060,21 @@
             }
             lastTouchEnd = now;
         }, false);
+
+        function updateThemeColor() {
+            const metaTheme = document.getElementById('theme-color-meta');
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                metaTheme.setAttribute('content', '#000000'); // dark theme color
+            } else {
+                metaTheme.setAttribute('content', '#ffffff'); // light theme color
+            }
+        }
+        
+        // Initial check
+        updateThemeColor();
+        
+        // Listen for changes if user switches theme
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeColor);
     </script>
 </body>
 </html>
