@@ -1,9 +1,5 @@
 # FlashCards
-Minimalistic Flashcard Web Application
-
-# Flashcard Web Application
-
-A clean, minimalistic flashcard web application optimized for mobile devices (iOS and Android) for language learning and study purposes.
+A clean, minimalistic flashcard web application for language learning and study purposes.
 
 ## Features
 
