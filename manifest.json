@@ -1,6 +1,6 @@
 {
-  "name": "A to अ",
-  "short_name": "English to Hindi",
+  "name": "A -> अ",
+  "short_name": "A -> अ",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
