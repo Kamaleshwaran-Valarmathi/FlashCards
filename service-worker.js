@@ -1,3 +1,10 @@
+const urlsToCache = [
+  '/FlashCards/',
+  '/FlashCards/css/styles.css',
+  '/FlashCards/js/app.js',
+  '/FlashCards/js/constants.js'
+];
+
 self.addEventListener("install", (e) => {
   e.waitUntil(
     caches.open("app-cache").then((cache) => {
