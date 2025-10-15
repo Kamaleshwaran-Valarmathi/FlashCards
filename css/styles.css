@@ -522,10 +522,10 @@ html::before {
 
 
 .table-container {
-    overflow: auto;
-    max-height: calc(80vh - 120px);  /* Optimized height for 80vh modal */
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-base);
+    overflow: hidden; /* Ensure border-radius is respected */
+    max-height: calc(80vh - 120px); /* Optimized height for 80vh modal */
+    border: 1px solid var(--color-border); /* Consistent border */
+    border-radius: var(--radius-base); /* Apply curved edges */
 }
 
 /* Ensure consistent padding around table */
