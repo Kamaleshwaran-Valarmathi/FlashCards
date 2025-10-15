@@ -1,12 +1,12 @@
 {
   "name": "English -> Hindi",
   "short_name": "A -> अ",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/FlashCards/",
+  "scope": "/FlashCards/",
   "display": "standalone",
   "icons": [
     {
-      "src": "icons/icon.png",
+      "src": "/FlashCards/icons/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
