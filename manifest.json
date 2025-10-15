@@ -1,9 +1,11 @@
 {
-  "name": "English -> Hindi",
-  "short_name": "A -> अ",
+  "name": "English -> हिन्दी",
+  "short_name": "A → अ",
+  "description": "A clean, minimalistic flashcard web application for language learning and study purposes.",
   "start_url": "/FlashCards/",
   "scope": "/FlashCards/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/FlashCards/icons/icon.png",
