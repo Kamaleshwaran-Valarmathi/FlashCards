@@ -583,7 +583,26 @@ html::before {
 }
 
 .table-container {
-    scrollbar-color: var(--color-charcoal-700);
+    max-height: calc(85vh - 100px);
+    overflow-y: auto; /* Ensure the scrollbar is visible */
+}
+
+/* Custom scrollbar styles for WebKit browsers (iOS, Safari, Chrome) */
+.table-container::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light grey background for the track */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #b0b0b0; /* Grey color for the scrollbar thumb */
+    border-radius: 4px; /* Rounded edges for the thumb */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #909090; /* Darker grey on hover */
 }
 
 /* Table responsive */
@@ -612,7 +631,6 @@ html::before {
 
     .table-container {
         max-height: calc(85vh - 100px);
-        scrollbar-color: var(--color-charcoal-700);
     }
 }
 
