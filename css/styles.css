@@ -528,19 +528,6 @@ html::before {
     border-radius: var(--radius-base); /* Apply curved edges */
 }
 
-.table-container::-webkit-scrollbar {
-    width: 5px;                     /* width of the entire scrollbar */
-}
-
-.table-container::-webkit-scrollbar-thumb {
-    background: var(--color-gray-300);
-    border-radius: 3px;                   /* rounded ends          */
-}
-
-.table-container::-webkit-scrollbar-track {
-    background-color: var(--color-gray-200);
-}
-
 /* Ensure consistent padding around table */
 .modal-body {
     padding: var(--space-20);
