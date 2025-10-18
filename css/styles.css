@@ -485,6 +485,8 @@ html::before {
     align-items: center;
     justify-content: space-between;
     background-color: var(--color-surface);
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
 }
 
 /* Light mode only - no dark mode support */
@@ -518,8 +520,6 @@ html::before {
 }
 
 /* Light mode only - no dark mode support */
-
-
 
 .table-container {
     overflow: auto;
@@ -577,16 +577,14 @@ html::before {
     border-bottom: none;
 }
 
+.cards-table td:nth-child(1),
+.cards-table th:nth-child(1) {
+    border-right: 1px solid var(--color-card-border); /* Add separator line */
+}
+
 .table-container {
     scrollbar-color: auto;  /* thumb & track colours = system default */
     scrollbar-width: auto;  /* normal thickness */
-}
-
-.table-container::-webkit-scrollbar,
-.table-container::-webkit-scrollbar-track,
-.table-container::-webkit-scrollbar-thumb {
-    all: unset;                /* remove custom styling */
-    width: initial;
 }
 
 /* Table responsive */

@@ -39,11 +39,11 @@ function createFlashcard(card) {
 
     flashcardElement.innerHTML = `
             <div class="card-face card-front">
-                <div class="card-type">Question</div>
+                <div class="card-type">English / Tamil</div>
                 <div class="card-content"></div>
             </div>
             <div class="card-face card-back">
-                <div class="card-type">Answer</div>
+                <div class="card-type">Hindi</div>
                 <div class="card-content"></div>
             </div>
         `;
