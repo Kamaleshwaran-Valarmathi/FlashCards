@@ -582,6 +582,10 @@ html::before {
     border-right: 1px solid var(--color-card-border); /* Add separator line */
 }
 
+.table-container {
+    scrollbar-color: var(--color-charcoal-700);
+}
+
 /* Table responsive */
 @media (max-width: 600px) {
     .modal-overlay {
@@ -608,6 +612,7 @@ html::before {
 
     .table-container {
         max-height: calc(85vh - 100px);
+        overflow-y: auto; /* Ensure the scrollbar is visible */
     }
 }
 
