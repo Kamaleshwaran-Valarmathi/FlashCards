@@ -523,9 +523,22 @@ html::before {
 
 .table-container {
     overflow: auto;
-    max-height: calc(80vh - 120px); /* Optimized height for 80vh modal */
+    max-height: calc(85vh - 120px); /* Optimized height for 85vh modal */
     border: 1px solid var(--color-border); /* Consistent border */
     border-radius: var(--radius-base); /* Apply curved edges */
+}
+
+.table-container::-webkit-scrollbar {
+    width: 5px;                     /* width of the entire scrollbar */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--color-gray-300);
+    border-radius: 3px;                   /* rounded ends          */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: var(--color-gray-200);
 }
 
 /* Ensure consistent padding around table */
@@ -580,11 +593,6 @@ html::before {
 .cards-table td:nth-child(1),
 .cards-table th:nth-child(1) {
     border-right: 1px solid var(--color-card-border); /* Add separator line */
-}
-
-.table-container {
-    max-height: calc(85vh - 100px);
-    overflow-y: overlay; /* Integrates the scrollbar into the content */
 }
 
 /* Table responsive */
