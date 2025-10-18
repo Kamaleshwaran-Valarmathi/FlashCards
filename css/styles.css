@@ -587,12 +587,6 @@ html::before {
     overflow-y: overlay; /* Integrates the scrollbar into the content */
 }
 
-/* Custom scrollbar styles for WebKit browsers (iOS, Safari, Chrome) */
-.table-container::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-    color: var(--color-slate-500);
-}
-
 /* Table responsive */
 @media (max-width: 600px) {
     .modal-overlay {
