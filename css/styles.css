@@ -467,10 +467,10 @@ html::before {
     background-color: var(--color-surface);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    width: 85%;
-    max-width: 85vw;
-    height: 80vh;
-    max-height: 80vh;
+    width: 90%;
+    max-width: 90vw;
+    height: 85vh;
+    max-height: 85vh;
     display: flex;
     flex-direction: column;
     border: 1px solid var(--color-border);
@@ -589,10 +589,10 @@ html::before {
     }
 
     .modal-content {
-        width: 85%;
-        max-width: 85vw;
-        height: 80vh;
-        max-height: 80vh;
+        width: 90%;
+        max-width: 90vw;
+        height: 85vh;
+        max-height: 85vh;
     }
 
     .modal-header,
