@@ -582,11 +582,6 @@ html::before {
     border-right: 1px solid var(--color-card-border); /* Add separator line */
 }
 
-.table-container {
-    scrollbar-color: auto;  /* thumb & track colours = system default */
-    scrollbar-width: auto;  /* normal thickness */
-}
-
 /* Table responsive */
 @media (max-width: 600px) {
     .modal-overlay {
