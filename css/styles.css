@@ -523,7 +523,7 @@ html::before {
 
 .table-container {
     overflow: auto;
-    max-height: calc(85vh - 120px); /* Optimized height for 85vh modal */
+    max-height: calc(80vh - 120px); /* Optimized height for 85vh modal */
     border: 1px solid var(--color-border); /* Consistent border */
     border-radius: var(--radius-base); /* Apply curved edges */
 }
@@ -620,7 +620,7 @@ html::before {
     }
 
     .table-container {
-        max-height: calc(85vh - 100px);
+        max-height: calc(80vh - 100px);
     }
 }
 
