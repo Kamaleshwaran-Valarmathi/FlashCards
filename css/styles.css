@@ -602,10 +602,10 @@ html::before {
     }
 
     .modal-content {
-        width: 90%;
-        max-width: 90vw;
-        height: 85vh;
-        max-height: 85vh;
+        width: 85%;
+        max-width: 85vw;
+        height: 80vh;
+        max-height: 80vh;
     }
 
     .modal-header,
