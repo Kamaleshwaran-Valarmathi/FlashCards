@@ -587,8 +587,10 @@ html::before {
     overflow-y: overlay; /* Integrates the scrollbar into the content */
 }
 
-.table-container::-webkit-scrollbar-thumb:hover {
-    background: #909090; /* Darker grey on hover */
+/* Custom scrollbar styles for WebKit browsers (iOS, Safari, Chrome) */
+.table-container::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    color: var(--color-slate-500);
 }
 
 /* Table responsive */
