@@ -522,17 +522,33 @@ html::before {
 /* Light mode only - no dark mode support */
 
 .table-container {
+    flex: 1;
     overflow: auto;
-    max-height: calc(85vh - 120px); /* Optimized height for 85vh modal */
+    margin-bottom: var(--space-20);
+    /* max-height: calc(85vh - 120px); Optimized height for 85vh modal */
     border: 1px solid var(--color-border); /* Consistent border */
     border-radius: var(--radius-base); /* Apply curved edges */
 }
 
+.table-actions {
+    display: flex;
+    justify-content: space-between; /* Push buttons to opposite corners */
+}
+
+.table-actions .view-all-button {
+    padding: 10px 20px; /* Add padding inside the buttons */
+    font-size: var(--font-size-lg); /* Adjust font size for better visibility */
+}
+
 /* Ensure consistent padding around table */
 .modal-body {
-    padding: var(--space-20);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    padding: var(--space-20);
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
 }
 
 .cards-table {
@@ -582,6 +598,13 @@ html::before {
     border-right: 1px solid var(--color-card-border); /* Add separator line */
 }
 
+.cards-table th:first-child, 
+.cards-table td:first-child {
+    border-right: none; /* Remove the right border for the "Select" column */
+    width: 50px; /* Set a minimal width for the "Select" column */
+    text-align: center; /* Center-align the content for better appearance */
+}
+
 /* Table responsive */
 @media (max-width: 600px) {
     .modal-overlay {
@@ -604,10 +627,6 @@ html::before {
     .cards-table td {
         padding: var(--space-8) var(--space-12);
         font-size: var(--font-size-sm);
-    }
-
-    .table-container {
-        max-height: calc(85vh - 100px);
     }
 }
 
@@ -639,8 +658,14 @@ html::before {
 
     .view-all-button {
         width: 100%;
-        padding: var(--space-10) var(--space-16);
+        padding: var(--space-10) var(--space-10);
         font-size: var(--font-size-sm);
+    }
+
+    .table-actions .view-all-button {
+        width: auto;
+        padding: var(--space-10) var(--space-10);
+        font-size: var(--font-size-base);
     }
 }
 

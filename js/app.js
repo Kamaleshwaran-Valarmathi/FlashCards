@@ -3,7 +3,9 @@ import { categories } from './constants.js';
 
 // Application state
 let currentCategory = null;
-let shuffledCards = [];
+let selectedCards = []; // Cards selected for study
+let shuffledCards = []; // Shuffled cards for current session
+let selectedItems = new Set(); // Indexes of selected cards
 let currentCardIndex = 0;
 let isFlipped = false;
 
@@ -21,6 +23,20 @@ const modalTitle = document.getElementById('modalTitle');
 const cardsTable = document.getElementById('cardsTable');
 const cardsTableBody = document.getElementById('cardsTableBody');
 const closeButton = document.getElementById('closeButton');
+const selectAllButton = document.getElementById("selectAllButton");
+const deselectAllButton = document.getElementById("deselectAllButton");
+
+function populateSelectedCards() {
+    selectedCards = [];
+    if (currentCategory) {
+        selectedItems.forEach((index) => {
+            let card = currentCategory.cards[index];
+            selectedCards.push(card);
+            // Invert key and value for flashcard display
+            selectedCards.push({ key: card.value, value: card.key });
+        });
+    }
+}
 
 // Utility functions
 function shuffleArray(array) {
@@ -30,6 +46,18 @@ function shuffleArray(array) {
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
+}
+
+function shuffleAndShowCards() {
+    if (currentCategory) {
+        // Shuffle the cards for this category
+        populateSelectedCards();
+        shuffledCards = shuffleArray(selectedCards);
+        currentCardIndex = 0;
+
+        // Show the first card
+        showCard();
+    }
 }
 
 function createFlashcard(card) {
@@ -131,8 +159,11 @@ function showTableView() {
     // Clear and populate table
     cardsTableBody.innerHTML = '';
 
-    currentCategory.cards.forEach(card => {
+    currentCategory.cards.forEach((card, index) => {
         const row = document.createElement('tr');
+
+        const selectCell = document.createElement('td');
+        selectCell.innerHTML = `<input type="checkbox" class="card-checkbox" data-index="${index}">`;
 
         const englishCell = document.createElement('td');
         englishCell.innerHTML = card.key;
@@ -140,9 +171,25 @@ function showTableView() {
         const hindiCell = document.createElement('td');
         hindiCell.innerHTML = card.value;
 
+        row.appendChild(selectCell);
         row.appendChild(englishCell);
         row.appendChild(hindiCell);
         cardsTableBody.appendChild(row);
+    });
+
+    // Set checkbox states based on selectedItems
+    document.querySelectorAll(".card-checkbox").forEach((checkbox) => {
+        const index = parseInt(checkbox.dataset.index);
+        checkbox.checked = selectedItems.has(index);
+
+        // Add event listener for change
+        checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                selectedItems.add(index);
+            } else {
+                selectedItems.delete(index);
+            }
+        });
     });
 
     // Show modal
@@ -153,6 +200,23 @@ function showTableView() {
 function hideTableView() {
     modalOverlay.style.display = 'none';
     document.body.style.overflow = ''; // Restore scroll
+    
+    // Shuffle the cards for this category and show the first card
+    shuffleAndShowCards();
+}
+
+function selectAllCards() {
+    document.querySelectorAll(".card-checkbox").forEach((checkbox) => {
+        checkbox.checked = true;
+        selectedItems.add(parseInt(checkbox.dataset.index));
+    });
+}
+
+function deselectAllCards() {
+    document.querySelectorAll(".card-checkbox").forEach((checkbox) => {
+        checkbox.checked = false;
+        selectedItems.delete(parseInt(checkbox.dataset.index));
+    });
 }
 
 function selectCategory(categoryName) {
@@ -167,12 +231,11 @@ function selectCategory(categoryName) {
         return;
     }
 
-    // Shuffle the cards for this category
-    shuffledCards = shuffleArray(currentCategory.cards);
-    currentCardIndex = 0;
+    // By default, select all cards
+    selectAllCards();
 
-    // Show the first card
-    showCard();
+    // Shuffle the cards for this category and show the first card
+    shuffleAndShowCards();
 
     // Show navigation and view all button
     navigation.style.display = 'flex';
@@ -198,6 +261,8 @@ function initializeApp() {
     nextButton.addEventListener('click', goToNextCard);
     viewAllButton.addEventListener('click', showTableView);
     closeButton.addEventListener('click', hideTableView);
+    selectAllButton.addEventListener("click", selectAllCards);
+    deselectAllButton.addEventListener("click", deselectAllCards);
 
     // Close modal when clicking overlay
     modalOverlay.addEventListener('click', (e) => {
