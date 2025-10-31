@@ -420,7 +420,12 @@ html::before {
     flex: 1;
 }
 
-.view-all-button {
+.header-action-buttons {
+    display: flex;
+    gap: var(--space-12);
+}
+
+.primary-button {
     padding: var(--space-12) var(--space-16);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
@@ -433,15 +438,15 @@ html::before {
     white-space: nowrap;
 }
 
-.view-all-button:hover {
+.primary-button:hover {
     background-color: var(--color-secondary-hover);
 }
 
-.view-all-button:active {
+.primary-button:active {
     background-color: var(--color-secondary-active);
 }
 
-.view-all-button:focus {
+.primary-button:focus {
     outline: none;
     box-shadow: var(--focus-ring);
 }
@@ -535,7 +540,7 @@ html::before {
     justify-content: space-between; /* Push buttons to opposite corners */
 }
 
-.table-actions .view-all-button {
+.table-actions .primary-button {
     padding: 10px 20px; /* Add padding inside the buttons */
     font-size: var(--font-size-lg); /* Adjust font size for better visibility */
 }
@@ -653,16 +658,19 @@ html::before {
 
     .header-controls {
         flex-direction: column;
-        gap: var(--space-8);
+        gap: var(--space-12);
     }
 
-    .view-all-button {
+    .header-action-buttons {
         width: 100%;
-        padding: var(--space-10) var(--space-10);
-        font-size: var(--font-size-sm);
     }
 
-    .table-actions .view-all-button {
+    .primary-button {
+        width: 100%;
+        padding: var(--space-12) var(--space-32);
+    }
+
+    .table-actions .primary-button {
         width: auto;
         padding: var(--space-10) var(--space-10);
         font-size: var(--font-size-base);

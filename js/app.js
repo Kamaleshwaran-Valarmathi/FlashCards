@@ -18,6 +18,7 @@ const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
 const cardCounter = document.getElementById('cardCounter');
 const viewAllButton = document.getElementById('viewAllButton');
+const shuffleButton = document.getElementById('shuffleButton');
 const modalOverlay = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const cardsTable = document.getElementById('cardsTable');
@@ -48,15 +49,24 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-function shuffleAndShowCards() {
+function populateAndShowCards(shuffle=true) {
     if (currentCategory) {
+        if (selectedItems.size === 0) {
+            // If no cards selected, show a message
+            flashcardContainer.innerHTML = '<div class="loading">No cards selected. Please select cards from the "View All" option.</div>';
+            navigation.style.display = 'none';
+            return;
+        }
+
         // Shuffle the cards for this category
+        selectedItems = new Set(Array.from(selectedItems).sort((a, b) => a - b));
         populateSelectedCards();
-        shuffledCards = shuffleArray(selectedCards);
+        shuffledCards = (shuffle ? shuffleArray(selectedCards) : selectedCards);
         currentCardIndex = 0;
 
         // Show the first card
         showCard();
+        navigation.style.display = 'flex';
     }
 }
 
@@ -202,7 +212,7 @@ function hideTableView() {
     document.body.style.overflow = ''; // Restore scroll
     
     // Shuffle the cards for this category and show the first card
-    shuffleAndShowCards();
+    populateAndShowCards(false);
 }
 
 function selectAllCards() {
@@ -228,18 +238,21 @@ function selectCategory(categoryName) {
         flashcardContainer.innerHTML = '<div class="loading">Choose a category to start studying</div>';
         navigation.style.display = 'none';
         viewAllButton.style.display = 'none';
+        shuffleButton.style.display = 'none';
         return;
     }
 
     // By default, select all cards
-    selectAllCards();
+    for (let i = 0; i < currentCategory.cards.length; i++)
+        selectedItems.add(i);
 
     // Shuffle the cards for this category and show the first card
-    shuffleAndShowCards();
+    populateAndShowCards(false);
 
     // Show navigation and view all button
     navigation.style.display = 'flex';
     viewAllButton.style.display = 'block';
+    shuffleButton.style.display = 'block';
 }
 
 // Initialize the app
@@ -260,6 +273,7 @@ function initializeApp() {
     prevButton.addEventListener('click', goToPreviousCard);
     nextButton.addEventListener('click', goToNextCard);
     viewAllButton.addEventListener('click', showTableView);
+    shuffleButton.addEventListener('click', populateAndShowCards);
     closeButton.addEventListener('click', hideTableView);
     selectAllButton.addEventListener("click", selectAllCards);
     deselectAllButton.addEventListener("click", deselectAllCards);

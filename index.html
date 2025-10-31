@@ -25,14 +25,19 @@
 <body>
     <div class="app-container">
         <header class="header">
-            <h1 class="app-title">Study Flashcards</h1>
+            <h1 class="app-title">Flashcards</h1>
             <div class="header-controls">
                 <select class="category-selector" id="categorySelector">
                     <option value="">Select a category...</option>
                 </select>
-                <button class="view-all-button" id="viewAllButton" style="display: none;" type="button">
-                    View All
-                </button>
+                <div class="header-action-buttons">
+                    <button class="primary-button" id="viewAllButton" style="display: none;" type="button">
+                        View All
+                    </button>
+                    <button class="primary-button" id="shuffleButton" style="display: none;" type="button">
+                        Shuffle
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -75,8 +80,8 @@
                     </table>
                 </div>
                 <div class="table-actions">
-                    <button id="selectAllButton" type="button" class="view-all-button">Select All</button>
-                    <button id="deselectAllButton" type="button" class="view-all-button">Deselect All</button>
+                    <button id="selectAllButton" type="button" class="primary-button">Select All</button>
+                    <button id="deselectAllButton" type="button" class="primary-button">Deselect All</button>
                 </div>
             </div>
         </div>
