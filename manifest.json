@@ -1,6 +1,6 @@
 {
-  "name": "English -> हिन्दी",
-  "short_name": "A → अ",
+  "name": "FlashCards",
+  "short_name": "FlashCards",
   "description": "A clean, minimalistic flashcard web application for language learning and study purposes.",
   "start_url": "/FlashCards/",
   "scope": "/FlashCards/",
